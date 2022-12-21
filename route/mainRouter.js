@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 const jwtSecret = "iamsecret";
 const { v4: uuidv4 } = require('uuid');
 
-app.post('/register', async (req, res)=>{
+router.post('/register', async (req, res)=>{
     const result = {
         success: false
     };
@@ -55,7 +55,7 @@ app.post('/register', async (req, res)=>{
     }
 });
 
-app.post('/login', async(req, res)=>{
+router.post('/login', async(req, res)=>{
     let result = {
         success: false
     };
@@ -98,7 +98,7 @@ app.post('/login', async(req, res)=>{
     }
 })
 
-app.post('/logout', auth, async(req, res)=>{
+router.post('/logout', auth, async(req, res)=>{
     const targetJti = req.userInfo.jti;
     await db().collection("token_whitelist").deleteOne({jti: targetJti});
     res.json({success: false, message: 'You logged out successfully'});
